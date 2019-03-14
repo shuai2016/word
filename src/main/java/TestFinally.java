@@ -23,10 +23,39 @@ public class TestFinally {
 		System.out.println(str1);
 		System.out.println(str2);
 
-		System.out.println("abc"+null);
+		System.out.println("abc" + null);
+		System.out.println(get());
+		System.out.println(getA(new A(0)));
 	}
 
-	public static synchronized int get(int x, int y) {
+	public static int get() {
+		int i = 0;
+		try {
+			int j = i / 0;
+			return i = i + 1;
+		} catch (Exception e) {
+			return i = i + 2;
+		} finally {
+			 i = i + 4;
+			System.out.println(i);
+		}
+	}
+
+	public static A getA(A a) {
+		int i = 0;
+		try {
+			int j = i / 0;
+			a.setI(1);
+			return a;
+		} catch (Exception e) {
+			a.setI(2);
+			return a;
+		} finally {
+			a.setI(3);
+		}
+	}
+
+	public static int get(int x, int y) {
 		try {
 			return x + y;
 		} finally {
@@ -58,6 +87,7 @@ class A {
 
 	public A(int i) {
 		this.i = i;
+		System.out.println("A:"+i);
 	}
 
 	public int getI() {
@@ -66,5 +96,12 @@ class A {
 
 	public void setI(int i) {
 		this.i = i;
+	}
+
+	@Override
+	public String toString() {
+		return "A{" +
+				"i=" + i +
+				'}';
 	}
 }
