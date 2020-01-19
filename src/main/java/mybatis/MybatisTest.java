@@ -24,4 +24,5 @@ public class MybatisTest {
             e.printStackTrace();
         }
     }
+
 }
